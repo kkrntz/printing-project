@@ -19,10 +19,8 @@ exports.getCurrentConnection = function(callback){
       callback(err);
     }else{
       wifi.getCurrentConnections(function(err2, networks) {
-        console.log(interface);
-        console.log(networks);
         if (err2) {
-          callback(false);
+          callback(interface, null);
         } else {
           if(networks.length > 0){
             callback(interface, networks[0]);
