@@ -7,7 +7,6 @@
         <div class="col">
             <font class="h5_font">Status</font>
             <% if(network || wifi){ %>
-
             <span class="badge badge-success">Online</span>
             <% }else{ %>
             <span class="badge badge-secondary">No Connection</span>
@@ -33,5 +32,11 @@
             <font class="h5_font">Security : </font>
             <span style="font-style:italic"><%= wifi ? ' ' + wifi.security : '' %></span>
         </div>
+    </div>
+</div> 
+
+<div class="col container">
+    <h3>FTP Details</h3>
+    <div class="col">
     </div>
 </div> 
