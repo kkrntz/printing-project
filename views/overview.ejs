@@ -1,3 +1,38 @@
 <% layout('index') -%>
 
-Overview 
+<div class="col container">
+    <h3>Connection Settings</h3>
+    <div class="col">
+        <!-- <div class="col-1"></div> -->
+        <div class="col">
+            <font class="h5_font">Status</font>
+            <% if(wifi && network){ %>
+            <span class="badge badge-success">Online</span>
+            <% }else if(!wifi && network){ %>
+            <span class="badge badge-secondary">No Wifi Connection</span>
+            <% }else{ %>
+            <span class="badge badge-secondary">No Connection</span>
+            <% } %>
+        </div>
+        <div class="col">
+            <font class="h5_font">SSID : </font>
+            <span style="font-style:italic"><%= wifi ? ' ' + wifi.ssid : '' %></span>
+        </div>
+        <div class="col">
+            <font class="h5_font">Name : </font>
+            <span style="font-style:italic"><%= network ? ' ' + network.name : '' %></span>
+        </div>
+        <div class="col">
+            <font class="h5_font">Model : </font>
+            <span style="font-style:italic"><%= network ? ' ' + network.model : '' %></span>
+        </div>
+        <div class="col">
+            <font class="h5_font">Type : </font>
+            <span style="font-style:italic"><%= network ? ' ' + network.type : '' %></span>
+        </div>
+        <div class="col">
+            <font class="h5_font">Security : </font>
+            <span style="font-style:italic"><%= wifi ? ' ' + wifi.security : '' %></span>
+        </div>
+    </div>
+</div> 
