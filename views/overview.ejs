@@ -6,10 +6,8 @@
         <!-- <div class="col-1"></div> -->
         <div class="col">
             <font class="h5_font">Status</font>
-            <% if(wifi && network){ %>
+            <% if(wifi || network){ %>
             <span class="badge badge-success">Online</span>
-            <% }else if(!wifi && network){ %>
-            <span class="badge badge-secondary">No Wifi Connection</span>
             <% }else{ %>
             <span class="badge badge-secondary">No Connection</span>
             <% } %>
