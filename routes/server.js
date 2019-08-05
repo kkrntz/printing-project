@@ -1,7 +1,15 @@
 var wifi = require('node-wifi');
 var network = require('network');
+var ftpSrv = require('ftp-srv');
 
 wifi.init();
+
+var ftpServer;
+
+exports.startFTPSrv = function(hostname, port){
+  ftpServer = new FtpSvr ( 'ftp://' + hostname + ':' + port,
+  { anonymous: true, greeting : [ "Hello" ] } );
+}
 
 exports.getServerAddress = function(callback){
   network.get_private_ip(function(err, ip){

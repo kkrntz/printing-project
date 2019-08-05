@@ -34,9 +34,22 @@
         </div>
     </div>
 </div> 
-
+<br />
+<br />
 <div class="col container">
     <h3>FTP Details</h3>
     <div class="col">
+        <div class="col">
+            <font class="h5_font">Status</font>
+            <% if(network || wifi){ %>
+            <span class="badge badge-success">Online</span>
+            <% }else{ %>
+            <span class="badge badge-secondary">No Connection</span>
+            <% } %>
+        </div>
+        <div class="col">
+            <font class="h5_font">Network Address : </font>
+            <span style="font-style:italic"><%= ipAddress ? ' ' + ipAddress : '' %></span>
+        </div>
     </div>
 </div> 
