@@ -11,14 +11,13 @@ exports.startFTPSrv = function(hostname, port){
   if(!ftpServer){
     ftpServer = new ftpSrv (
     {
-      url: "ftp://127.0.0.1:2121",
-      anonymous: true,
+      anonymous: false,
       pasv_url : '127.0.0.1',
       pasv_range: '2000-3000' } );
 
     ftpServer.on ( 'login', ( {connection, username, password}, resolve, reject ) =>
     {
-      console.log(process.cwd());
+      console.log(username, password);
       if (username === 'root' && password === 'root') {
         console.log("connected");
         // If connected, add a handler to confirm file uploads 
@@ -29,7 +28,7 @@ exports.startFTPSrv = function(hostname, port){
           } 
           console.info(`FTP server: upload successfully received - ${fileName}`); 
         }); 
-        resolve ( {root : process.cwd(), cwd : '\\' } ); 
+        resolve ( {fs: fs.readFile(fileName), root : process.cwd(), cwd : '\\' } ); 
       } else { 
         reject(new Error('Unable to authenticate with FTP server: bad username or password')); 
       } 
