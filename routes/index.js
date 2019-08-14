@@ -3,11 +3,18 @@ var server = require('./server');
 exports.landingPage = function (req, res){
   server.getServerAddress(function(ipAddress){
     server.getCurrentConnection(function(network, wifi){
+      var ftpObject = {
+        "port" : 8881,
+        "user" : "test",
+        "password" : "test",
+        "directory" : "/"
+      }
       res.render('overview', {
         ipAddress : ipAddress ? ipAddress : 'localhost',
         pageName : 'overview',
         network : network,
-        wifi : wifi
+        wifi : wifi,
+        ftpObject : ftpObject
       });
     })
   });
