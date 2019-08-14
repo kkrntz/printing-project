@@ -76,6 +76,8 @@ app.get('/ftp', routes.ftpPage);
 app.get('/printer', routes.printerPage);
 
 http.createServer(app).listen(app.get('port'), function(){
-  server.startFTPSrv("192.168.0.28","8421");
-  console.log('Express server listening on port ' + app.get('port'));
+  server.getServerAddress(function(ipAddress){
+    server.startFTPSrv(ipAddress,"8881");
+    console.log('Express server listening on port ' + app.get('port'));
+  });
 });

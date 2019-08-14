@@ -1,6 +1,7 @@
 var wifi = require('node-wifi');
 var network = require('network');
 var ftpSrv = require('ftp-srv');
+var bunyan = require('bunyan')
 var fs = require('fs');
 
 wifi.init();
@@ -8,42 +9,21 @@ wifi.init();
 var ftpServer = null;
 
 exports.startFTPSrv = function(hostname, port){
-  if(!ftpServer){
-    ftpServer = new ftpSrv (
-    {
-      anonymous: false,
-      pasv_url : '127.0.0.1',
-      pasv_range: '2000-3000' } );
-
-    ftpServer.on ( 'login', ( {connection, username, password}, resolve, reject ) =>
-    {
-      console.log(username, password);
-      if (username === 'root' && password === 'root') {
-        console.log("connected");
-        // If connected, add a handler to confirm file uploads 
-        connection.on('STOR', (error, fileName) => {
-          console.log("Error",error);
-          if (error) { 
-            console.error(`FTP server error: could not receive file ${fileName} for upload ${error}`); 
-          } 
-          console.info(`FTP server: upload successfully received - ${fileName}`); 
-        }); 
-        resolve ( {fs: fs.readFile(fileName), root : process.cwd(), cwd : '\\' } ); 
-      } else { 
-        reject(new Error('Unable to authenticate with FTP server: bad username or password')); 
-      } 
-
-    });
-
-    ftpServer.on ( 'client-error', (connection, context, error) =>
-    {
-      console.log ( 'connection: ' , connection );
-      console.log ( 'context: ' , context );
-      console.log ( 'error: ' , error );
-    });
-
-    ftpServer.listen(); 
-  }
+  ftpServer = new ftpSrv({
+    log: bunyan.createLogger({name: 'test', level: 'trace'}),
+    url: 'ftp://' + hostname + ':' + port,
+    pasv_url: hostname,
+    pasv_min: 8881,
+    greeting: ['Welcome', 'to', 'the', 'jungle!'],
+    file_format: 'ls',
+    anonymous: 'kkrntz'
+  });
+  ftpServer.on('login', ({username, password}, resolve, reject) => {
+    if (username === 'test' && password === 'test' || username === 'kkrntz') {
+      resolve({root: '/'});
+    } else reject('Bad username or password');
+  });
+  ftpServer.listen();
 }
 
 exports.getServerAddress = function(callback){
