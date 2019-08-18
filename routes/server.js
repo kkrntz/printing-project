@@ -5,47 +5,6 @@ var fs = require('fs');
 
 wifi.init();
 
-var ftpServer = null;
-
-exports.startFTPSrv = function(hostname, port){
-  if(!ftpServer){
-    ftpServer = new ftpSrv (
-    {
-      anonymous: false,
-      pasv_url : '127.0.0.1',
-      pasv_range: '2000-3000' } );
-
-    ftpServer.on ( 'login', ( {connection, username, password}, resolve, reject ) =>
-    {
-      console.log(username, password);
-      if (username === 'root' && password === 'root') {
-        console.log("connected");
-        // If connected, add a handler to confirm file uploads 
-        connection.on('STOR', (error, fileName) => {
-          console.log("Error",error);
-          if (error) { 
-            console.error(`FTP server error: could not receive file ${fileName} for upload ${error}`); 
-          } 
-          console.info(`FTP server: upload successfully received - ${fileName}`); 
-        }); 
-        resolve ( {fs: fs.readFile(fileName), root : process.cwd(), cwd : '\\' } ); 
-      } else { 
-        reject(new Error('Unable to authenticate with FTP server: bad username or password')); 
-      } 
-
-    });
-
-    ftpServer.on ( 'client-error', (connection, context, error) =>
-    {
-      console.log ( 'connection: ' , connection );
-      console.log ( 'context: ' , context );
-      console.log ( 'error: ' , error );
-    });
-
-    ftpServer.listen(); 
-  }
-}
-
 exports.getServerAddress = function(callback){
   network.get_private_ip(function(err, ip){
     if(err){
