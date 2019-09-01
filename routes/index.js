@@ -4,7 +4,7 @@ exports.landingPage = function (req, res){
   server.getServerAddress(function(ipAddress){
     server.getCurrentConnection(function(network, wifi){
       var ftpDetails = {
-        "user" : "pi",
+        "user" : "pi3",
         "hostname" : ipAddress,
         "port" : 21,
         "password" : "raspberry",

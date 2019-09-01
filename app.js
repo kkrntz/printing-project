@@ -48,27 +48,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-// var checkAuth = function(req,res,next){
-//   if(!req.session.userid){
-//       req.flash('info','Please login to do that.');
-//       res.redirect('/')
-//   }else{
-//       next();
-//   } 
-// };
-
-// var checkSession = function(req,res,next){
-//   if (req.session.userid!=null){
-//     if (req.session.type == "faculty"){
-//       res.redirect('/Faculty');
-//     } else if (req.session.type == "student"){
-//       res.redirect('/Student');  
-//     } 
-//   } else {
-//     next();
-//   }
-// };
-
 //GENERAL
 app.get('/', routes.landingPage);
 app.get('/connection', routes.connectionPage);
