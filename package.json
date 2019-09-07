@@ -17,6 +17,7 @@
     "network": "^0.4.1",
     "node-wifi": "^2.0.7",
     "popper.js": "^1.15.0",
-    "tooltip.js": "^1.3.2"
+    "tooltip.js": "^1.3.2",
+    "wifi-control": "^2.0.1"
   }
 }

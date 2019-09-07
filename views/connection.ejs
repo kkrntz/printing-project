@@ -1,3 +1,36 @@
 <% layout('index') -%>
 
-Connection Settings
+<div class="col container">
+    <h3>Connection Settings</h3>
+    <div class="col">
+        <% if(network && !wifi){ %> 
+        <span style="font-style:italic; color:red">You are using LAN connection. Disconnect LAN first to connect to a wireless connection.</span>
+        <% } else if (!network && !wifi){ %>
+        <span style="font-style:italic; color:red">No connection. Select a Wireless Network.</span>
+        <% } %>
+    </div>
+    <br />
+    <form class="col container" action="/connect" method = "post">
+        <div class="row pb-2">
+            <div class="col-1"><font class="h5_font" for = "ssid">SSID </font></div>
+            <div class="col-4">
+                <select name = "ssid" class="custom-select" <%= (network && !wifi) ? 'disabled' : ''  %> >
+                    <option <%= (!wifi) ? 'selected' : '' %> ></option>
+                    <% for (var i = 0; i < wifi_networks.length ; i++){ %>
+                    <option value="<%= wifi_networks[i].ssid %>" <%= (wifi && wifi.ssid == wifi_networks[i].ssid) ? 'selected' : '' %> ><%= wifi_networks[i].ssid %></option>
+                    <% } %>
+                </select>
+            </div>
+        </div>
+        <div class="row pb-4">
+            <div class="col-1"><font class="h5_font" for = "ssid">Password </font></div>
+            <div class="col-4"><input type="password" name="password" class="form-control" <%= (network && !wifi) ? 'disabled' : ''  %>></div>
+        </div>
+        <div class="row">
+            <div class="col-1">&nbsp;</div>
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary float-right">Connect</button>
+            </div>
+        </div>
+    </form>
+</div>

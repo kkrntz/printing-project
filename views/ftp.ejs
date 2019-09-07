@@ -1,3 +1,31 @@
 <% layout('index') -%>
 
-FTP Settings
+<div class="col container">
+    <h3>FTP Settings</h3>
+    <div class="col">
+        <% if (!network && !wifi){ %>
+        <span style="font-style:italic; color:red">No connection.</span>
+        <% } %>
+    </div>
+    <br />
+    <form class="col container" action="/connect" method = "post">
+        <div class="row pb-2">
+            <div class="col-1"><font class="h5_font" for = "user">User </font></div>
+            <div class="col-4"><input type="text" name="user" class="form-control" <%= (!network && !wifi) ? 'disabled' : ''  %>></div>
+        </div>
+        <div class="row pb-4">
+            <div class="col-1"><font class="h5_font" for = "ssid">Password </font></div>
+            <div class="col-4"><input type="password" name="password" class="form-control" <%= (!network && !wifi) ? 'disabled' : ''  %>></div>
+        </div>
+        <div class="row pb-4">
+            <div class="col-1"><font class="h5_font" for = "ssid">Destination File </font></div>
+            <div class="col-4"><input type="text" name="dest" class="form-control" <%= (!network && !wifi) ? 'disabled' : ''  %>></div>
+        </div>
+        <div class="row">
+            <div class="col-1">&nbsp;</div>
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary float-right">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
