@@ -26,8 +26,11 @@ exports.landingPage = function (req, res){
 exports.ftpPage = function(req, res){
   server.getServerAddress(function(ipAddress){
     res.render('ftp',{
-      ipAddress : ipAddress ? ipAddress : 'localhost',
-      pageName : 'ftp',
+      ipAddress : ipAddress,
+      network : network,
+      wifi : wifi,
+      wifi_networks : wifi_networks,
+      pageName : 'connection',
       messages: req.flash('info')
     });
   });
