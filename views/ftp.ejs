@@ -8,21 +8,35 @@
         <% } %>
     </div>
     <br />
-    <form class="col container" action="/connect" method = "post">
+    <form class="col container" action="/saveFtp" method = "post">
         <div class="row pb-2">
-            <div class="col-1"><font class="h5_font" for = "user">User </font></div>
+            <div class="col-2"><font class="h5_font" for = "user">User </font></div>
             <div class="col-4"><input type="text" name="user" class="form-control" <%= (!network && !wifi) ? 'disabled' : ''  %>></div>
         </div>
-        <div class="row pb-4">
-            <div class="col-1"><font class="h5_font" for = "ssid">Password </font></div>
+        <div class="row pb-2">
+            <div class="col-2"><font class="h5_font" for = "ssid">Password </font></div>
             <div class="col-4"><input type="password" name="password" class="form-control" <%= (!network && !wifi) ? 'disabled' : ''  %>></div>
         </div>
-        <div class="row pb-4">
-            <div class="col-1"><font class="h5_font" for = "ssid">Destination File </font></div>
+        <div class="row pb-2">
+            <div class="col-2"><font class="h5_font" for = "ssid">Event Folder </font></div>
             <div class="col-4"><input type="text" name="dest" class="form-control" <%= (!network && !wifi) ? 'disabled' : ''  %>></div>
         </div>
+        <div class="row pb-2">
+            <div class="col-2"><font class="h5_font" for = "ssid">File to print </font></div>
+            <div class="custom-control custom-checkbox col-4">
+                <input type="checkbox" class="custom-control-input" id="jpgBox" name="jpg" <%= (!network && !wifi) ? 'disabled' : ''  %>>
+                <label class="custom-control-label" for="jpgBox">JPG</label>
+            </div>
+        </div>
+        <div class="row pb-4">
+            <div class="col-2">&nbsp;</div>
+            <div class="custom-control custom-checkbox col-4">
+                <input type="checkbox" class="custom-control-input" id="pngBox" name="png" <%= (!network && !wifi) ? 'disabled' : ''  %>>
+                <label class="custom-control-label" for="pngBox">PNG</label>
+            </div>
+        </div>
         <div class="row">
-            <div class="col-1">&nbsp;</div>
+            <div class="col-2">&nbsp;</div>
             <div class="col-4">
                 <button type="submit" class="btn btn-primary float-right">Save</button>
             </div>
