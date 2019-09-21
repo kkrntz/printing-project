@@ -31,14 +31,23 @@ exports.ftpPage = function(req, res){
         if(ifaceState.connection != 'connected'){
           wifi = null;
         }
-        res.render('ftp', {
-          ipAddress : ipAddress,
-          network : network,
-          wifi : wifi,
-          wifi_networks : wifi_networks,
-          pageName : 'ftp',
-          messages: req.flash('info')
-        })
+        server.getCurrentCredentials(function(creds){
+          var user_val = creds ? creds.user : '';
+          server.getCurrentDirectory(function(dir){
+            res.render('ftp', {
+            ipAddress : ipAddress,
+            network : network,
+            wifi : wifi,
+            wifi_networks : wifi_networks,
+            pageName : 'ftp',
+            user: user_val,
+            password : creds? creds.password : '',
+            directory : dir.replace(user_val + '/',  ''),
+            messages: req.flash('info')
+          });
+          });
+          
+        });
       });
     });
   });

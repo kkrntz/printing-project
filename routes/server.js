@@ -3,6 +3,11 @@ var network = require('network');
 var ftpSrv = require('ftp-srv');
 var fs = require('fs');
 var WiFiControl = require('wifi-control');
+var fs = require("fs");
+var shell = require("shelljs");
+
+var path = "./public/files/";
+var dir_default = "/var/www/";
 
 wifi.init();
 WiFiControl.init({
@@ -49,6 +54,31 @@ exports.getCurrentConnection = function(callback){
   });
 };
 
+exports.getCurrentCredentials = function(callback){
+  fs.readFile(path + 'user.txt', function(err, buff){
+    if(err){
+      callback(null);
+    }else{
+      var cred = buff.toString().trim().split(":");
+
+      callback({
+        "user" : cred[0],
+        "password" : cred[1]
+      })
+    }
+  });
+};
+
+exports.getCurrentDirectory = function(callback){
+  fs.readFile(path + 'path.txt', function(err, buff){
+    if (err){
+      callback(null);
+    }else{
+      callback(buff.toString().trim().replace(dir_default, ""));
+    }
+  })
+};
+
 exports.getWifiConnections = function(callback){
   wifi.scan(function(err, networks) {
     if (err) {
@@ -71,4 +101,17 @@ exports.connect = function(req, res){
       res.redirect('/');
     }
   })
+};
+
+exports.setFTP = function(req, res){
+  fs.writeFile(path + "user.txt", "pi3:12345678", (err) => {
+    if (err){ 
+      console.log(err);
+    }
+    fs.writeFile(path + "path.txt", "", (err) => {
+      if (err){ 
+        console.log(err);
+      }
+    });
+  });
 };

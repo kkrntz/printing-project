@@ -11,15 +11,15 @@
     <form class="col container" action="/saveFtp" method = "post">
         <div class="row pb-2">
             <div class="col-2"><font class="h5_font" for = "user">User </font></div>
-            <div class="col-4"><input type="text" name="user" class="form-control" <%= (!network && !wifi) ? 'disabled' : ''  %>></div>
+            <div class="col-4"><input type="text" name="user" class="form-control" readOnly value="<%= user %>" <%= (!network && !wifi) ? 'disabled' : ''  %> /></div>
         </div>
         <div class="row pb-2">
             <div class="col-2"><font class="h5_font" for = "ssid">Password </font></div>
-            <div class="col-4"><input type="password" name="password" class="form-control" <%= (!network && !wifi) ? 'disabled' : ''  %>></div>
+            <div class="col-4"><input type="password" name="password" class="form-control" value="<%= password %>" <%= (!network && !wifi) ? 'disabled' : ''  %>></div>
         </div>
         <div class="row pb-2">
             <div class="col-2"><font class="h5_font" for = "ssid">Event Folder </font></div>
-            <div class="col-4"><input type="text" name="dest" class="form-control" <%= (!network && !wifi) ? 'disabled' : ''  %>></div>
+            <div class="col-4"><input type="text" name="dest" class="form-control" value="<%= directory %>" <%= (!network && !wifi) ? 'disabled' : ''  %>></div>
         </div>
         <div class="row pb-2">
             <div class="col-2"><font class="h5_font" for = "ssid">File to print </font></div>
