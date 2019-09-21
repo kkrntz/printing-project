@@ -31,7 +31,7 @@ exports.ftpPage = function(req, res){
         if(ifaceState.connection != 'connected'){
           wifi = null;
         }
-        res.render('connection', {
+        res.render('ftp', {
           ipAddress : ipAddress,
           network : network,
           wifi : wifi,
@@ -52,6 +52,7 @@ exports.connectionPage = function(req, res){
         if(ifaceState.connection != 'connected'){
           wifi = null;
         }
+	console.log(wifi_networks);
         res.render('connection', {
           ipAddress : ipAddress,
           network : network,
