@@ -79,6 +79,16 @@ exports.getCurrentDirectory = function(callback){
   })
 };
 
+exports.getCurrentFileTypes = function(callback){
+  fs.readFile(path + 'file.txt', function(err, buff){
+    if (err){
+      callback(null);
+    }else{
+      callback(buff.toString().trim().split('\n'));
+    }
+  })
+};
+
 exports.getWifiConnections = function(callback){
   wifi.scan(function(err, networks) {
     if (err) {
@@ -103,15 +113,50 @@ exports.connect = function(req, res){
   })
 };
 
-exports.setFTP = function(req, res){
-  fs.writeFile(path + "user.txt", "pi3:12345678", (err) => {
+exports.saveFtp = function(req, res){
+  // console.log(req.body);
+  // if(shell.mkdir(dir_default + '$USER/' + req.body.dest).code !== 0){
+  //   console.log(err);
+  //   res.redirect('/ftp');
+  // }
+
+  // if(shell.exec("htpasswd -bcd /etc/ftpd.passwd " + req.body.user + " " + req.body.password + "").code !== 0){
+  //   console.log(err);
+  //   res.redirect('/ftp');
+  // }
+
+  // getCurrentDirectory(function(dir){
+    // if(shell.exec("sed -i 's/local_root=" + dir_default.replace('/','\/') + '$USER\/' + dir.replace(req.body.user+'/', '') + "/local_root=" + 
+    //    dir_default.replace('/','\/') + '$USER\/' + req.body.dest + "/g' /etc/vsftpd.conf").code !== 0){
+    //   console.log(err);
+    //   res.redirect('/ftp');
+    // }
+  // });
+  fs.writeFile(path + "user.txt", req.body.user + ":" + req.body.password, (err) => {
     if (err){ 
       console.log(err);
+      res.redirect('/ftp');
     }
-    fs.writeFile(path + "path.txt", "", (err) => {
+    fs.writeFile(path + "path.txt", dir_default + req.body.user + '/' + req.body.dest, (err) => {
       if (err){ 
         console.log(err);
       }
+
+      var file_types = "";
+      if(req.body.jpg){
+        file_types += "jpg\nJPEG\nJPG\n";
+      }
+
+      if(req.body.png){
+        file_types += "png\nPNG\n";
+      }
+      fs.writeFile(path + "file.txt", file_types, (err) => {
+        if (err){ 
+          console.log(err);
+        }
+        req.flash('info','Update successful.');
+        res.redirect('/');
+      });
     });
   });
 };

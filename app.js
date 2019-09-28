@@ -53,6 +53,7 @@ app.get('/', routes.landingPage);
 app.get('/connection', routes.connectionPage);
 app.get('/ftp', routes.ftpPage);
 app.get('/printer', routes.printerPage);
+app.post('/saveFtp', server.saveFtp)
 
 app.post('/connect', server.connect)
 
