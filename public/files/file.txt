@@ -1,0 +1,4 @@
+jpg
+jpeg
+JPEG
+JPG
