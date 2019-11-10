@@ -72,7 +72,7 @@ exports.connectionPage = function(req, res){
         if(ifaceState.connection != 'connected'){
           wifi = null;
         }
-	console.log(wifi_networks);
+	console.log(network);
         res.render('connection', {
           ipAddress : ipAddress,
           network : network,
