@@ -127,8 +127,8 @@ exports.saveFtp = function(req, res){
 
   getCurrentDirectory(function(dir){
     dir = dir.replace(req.body.user + '/', '');
-    shell.exec("sudo sed -i 's/local_root=" + dir_default.replace(/\//g,'\\/') + "$USER\\/" + dir.replace(/\//g,'\\/') + "\\//local_root=" + 
-       dir_default.replace(/\//g,'\\/') + "$USER\\/" + req.body.dest.replace(/\//g,'\\/') + "\\//g' /etc/vsftpd.conf")
+    //shell.exec("sudo sed -i 's/local_root=" + dir_default.replace(/\//g,'\\/') + "$USER\\/" + dir.replace(/\//g,'\\/') + "\\//local_root=" + 
+    //   dir_default.replace(/\//g,'\\/') + "$USER\\/" + req.body.dest.replace(/\//g,'\\/') + "\\//g' /etc/vsftpd.conf")
   
      shell.exec("sudo chown vsftpd:nogroup " + dir_default + req.body.user + "/" + req.body.dest);
      shell.exec("sudo chmod 0777 " + dir_default + req.body.user + "/" + req.body.dest);
