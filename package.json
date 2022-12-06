@@ -10,7 +10,7 @@
     "connect-flash": "^0.1.1",
     "ejs": "*",
     "ejs-locals": "~1.0.2",
-    "express": "3.4.4",
+    "express": "4.17.3",
     "ip": "^1.1.5",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
